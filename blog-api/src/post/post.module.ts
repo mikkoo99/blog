@@ -1,9 +1,19 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Post, PostSchema } from './models/post.model';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
 
 @Module({
+  imports: [
+    MongooseModule.forFeature([
+      {
+        name: Post.name,
+        schema: PostSchema,
+      },
+    ]),
+  ],
   controllers: [PostController],
-  providers: [PostService]
+  providers: [PostService],
 })
 export class PostModule {}
