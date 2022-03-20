@@ -1,8 +1,17 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import { PostModule } from './post/post.module';
 
 const ENV = process.env.NODE_ENV;
+
+const mongooseModuleConfig = {
+  imports: [ConfigModule],
+  inject: [ConfigService],
+  useFactory: (configService: ConfigService) => ({
+    uri: configService.get<string>('MONGODB_URI'),
+  }),
+};
 
 @Module({
   imports: [
@@ -12,6 +21,7 @@ const ENV = process.env.NODE_ENV;
         abortEarly: true,
       },
     }),
+    MongooseModule.forRootAsync(mongooseModuleConfig),
     PostModule,
   ],
 })

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Optional } from 'utility-types';
 import { PostI } from '../interfaces/post.interface';
 
@@ -15,8 +15,9 @@ export class CreatePostDto implements PostI {
   @IsNotEmpty()
   readonly content: string;
 
-  @IsString()
+  @IsBoolean()
   @IsNotEmpty()
+  @IsOptional()
   readonly isPublic: boolean;
 }
 
@@ -36,7 +37,7 @@ export class UpdatePostDto implements Optional<PostI> {
   @IsOptional()
   readonly content?: string;
 
-  @IsString()
+  @IsBoolean()
   @IsNotEmpty()
   @IsOptional()
   readonly isPublic?: boolean;

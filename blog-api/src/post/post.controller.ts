@@ -11,7 +11,7 @@ import { ValidateObjectId } from 'src/common/pipes/validate-objectId.pipe';
 import { CreatePostDto, UpdatePostDto } from './dto/post.dto';
 import { PostService } from './post.service';
 
-@Controller('post')
+@Controller({ path: 'posts', version: '1' })
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
